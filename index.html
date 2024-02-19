@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Криптобомж</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<div id="turn-counter">Ход: 1</div> <!-- Этот элемент добавляет счетчик ходов -->
+	<div id="event-field-container">
+        <div id="event-field">
+            <!-- Здесь будут отображаться случайные события и кнопки для выбора реакции -->
+        </div>
+    </div>
+    <div id="trade-field-container">
+        <div id="trade-info">
+            Мультипликатор: <span id="multiplier">1.5</span> | Шанс не потерять бабло: <span id="risk">50%</span>
+        </div>
+        <input type="range" id="money-slider" min="0" max="0" value="0">
+        <div id="selected-money">Завести на биржу: 0 $</div>
+    </div>
+    <div id="resource-container">
+        <div id="finance">Финансы: <span id="money">money $</span></div>
+        <div id="happiness">Счастье: <span id="happiness-value">5</span></div>
+    </div>
+    <div id="asset-container">
+        <table id="asset-table">
+            <tbody id="asset-body">
+                <!-- Здесь будут отображаться активы, их цены и кнопки для покупки/продажи -->
+                <!-- Каждый актив будет представлен в виде строки таблицы -->
+                <!-- Например: -->
+                <!-- <tr class="asset-item" id="asset-1">
+                    <td class="asset-info">Актив 1: <span id="asset-1-price">asset.price</span></td>
+                    <td><button id="buy-asset-1" onclick="buyOrSellAsset(1)">Купить</button></td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
+    <div id="total-maintenance-cost-container">
+        <!-- Здесь будет отображаться общая стоимость обслуживания -->
+    </div>
+    <button id="end-turn-button" onclick="end_turn()">Конец хода</button>
+	
+	<!-- Модальное окно Loss -->
+	<div id="modal" class="modal">
+	  <div class="modal-content">
+		<span class="close">&times;</span>
+		<img src="lose.jpg" alt="Image 1">
+		<div id="play-again-button-container">
+		  <button id="play-again-button-loss">Сыграть еще раз</button>
+		</div>
+	  </div>
+	</div>
+
+	<!-- Модальное окно Win -->
+	<div id="modal2" class="modal">
+	  <div class="modal-content">
+		<span class="close">&times;</span>
+		<img src="win.jpg" alt="Image 2">
+		<div id="play-again-button-container">
+		  <button id="play-again-button-win">Сыграть еще раз</button>
+		</div>
+	  </div>
+	</div>
+
+  </div>
+</div>
+	
+    <script src="game.js"></script>
+</body>
+</html>
+
