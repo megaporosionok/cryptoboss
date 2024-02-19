@@ -1,13 +1,12 @@
 body {
     font-family: Arial, sans-serif;
-	font-size: 0.85vw; /* Размер шрифта будет составлять 1.5% от ширины видимой области */
     text-align: center;
     margin: auto;
     padding: 2%;
     border: 2px solid #ccc;
     border-radius: 1em;
     margin-top: 2%;
-	max-width: 40%; /* Устанавливаем максимальную ширину 50% */
+	max-width: 720px;
 }
 
 #turn-counter {
@@ -81,10 +80,9 @@ body {
     border: none;
     cursor: pointer;
     border-radius: 0.5em;
-    width: auto; /* Ширина кнопок будет автоматически адаптироваться к содержимому */
-    max-width: 80%; /* Максимальная ширина кнопок для предотвращения переполнения контейнера */
+	width: max-content; /* или другое значение, которое будет достаточным для самой длинной кнопки */
 }
-
+}
 
 .asset-buttons button:hover {
     background-color: #45a049;
