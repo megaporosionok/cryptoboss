@@ -182,7 +182,7 @@ const events = [
             { text: 'Принять', moneyChange: function() { return -(1000 + Math.round(Math.abs(money) * 0.25)) }, happinessChange: 1 },
             { text: 'Отказаться', moneyChange: 0, happinessChange: -1 }
         ],
-        weight: 4
+        weight: 8
     },
     { 
          description: function() {
@@ -202,7 +202,7 @@ const events = [
             { text: 'Принять', moneyChange: function() { return -(1000 + Math.round(Math.abs(money) * 0.3)) }, happinessChange: +1 },
             { text: 'Отказаться', moneyChange: 0, happinessChange: 0 }
         ],
-        weight: 4
+        weight: 8
     },
 	{ 
         description: function() {
@@ -384,7 +384,10 @@ function trade() {
     const tradeAmount = parseInt(moneySlider.value);
 
     // Логика торговли
-    const positiveOutcome = getRandomInt(0, 100) <= risk;
+	const randomNum = getRandomInt(0, 100);
+	const positiveOutcome = randomNum <= risk;
+	console.log("Random number:", randomNum);
+	console.log("Positive outcome:", positiveOutcome);
 
     if (positiveOutcome) {
         const rawTradeResult = tradeAmount * multiplier;
