@@ -1,113 +1,182 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Disable global scroll */
+}
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    margin: auto;
-    padding: 2%;
-    border: 2px solid #ccc;
-    border-radius: 1em;
-    margin-top: 2%;
-	max-width: 720px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    max-width: 720px;
+    margin: 0 auto; /* Center horizontally on large screens */
+    padding: 8px;
 }
 
 #turn-counter {
-    margin-bottom: 2%;
-    padding: 1%;
+    flex: 0 0 auto;
+    padding: 5px;
     border: 1px solid #ccc;
-    border-radius: 0.5em;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    font-weight: bold;
 }
 
 #event-field-container {
-    margin-bottom: 2%;
-    min-height: 10vh;
+    flex: 0 1 auto;
+    min-height: 80px;
+    max-height: 25vh; /* Limit height so it doesn't push everything out */
+    margin-bottom: 5px;
+    display: flex;
+    align-items: stretch;
 }
 
 #event-field {
-    padding: 2%;
+    flex: 1;
+    padding: 10px;
     border: 2px solid #ccc;
-    border-radius: 1em;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto; /* Scroll text inside if too long */
+    font-size: 0.9em;
 }
 
 #trade-field-container {
-    margin-bottom: 2%;
-    padding: 1%;
+    flex: 0 0 auto;
+    padding: 5px;
     border: 1px solid #ccc;
-    border-radius: 0.5em;
+    border-radius: 5px;
+    margin-bottom: 5px;
 }
 
 #trade-info {
-    margin-bottom: 1%;
+    margin-bottom: 5px;
+    font-size: 0.85em;
 }
 
 #money-slider {
-    width: 80%;
-    margin-bottom: 1%;
+    width: 100%;
+    margin-bottom: 5px;
+    cursor: pointer;
+    display: block;
 }
 
 #selected-money {
-    margin-bottom: 2%;
+    margin-bottom: 0;
+    font-size: 0.9em;
 }
 
 #resource-container {
-    margin-bottom: 2%;
-    padding: 1%;
+    flex: 0 0 auto;
+    padding: 5px;
     border: 1px solid #ccc;
-    border-radius: 0.5em;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 0.9em;
 }
 
-/* Стили для таблицы активов */
+/* The container for the table needs to scroll */
+#asset-container {
+    flex: 1 1 auto; /* Grow to take available space */
+    overflow-y: auto; /* Internal scroll */
+    overflow-x: auto; /* Horizontal scroll if table is too wide */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 0;
+    min-height: 0; /* Critical for flex container to shrink properly */
+}
+
 #asset-table {
     width: 100%;
-    border-collapse: collapse; 
+    border-collapse: collapse;
 }
 
 .asset-item {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #eee;
 }
 
 .asset-info {
-    padding: 1%;
+    padding: 8px;
     text-align: left;
+    font-size: 0.85em;
 }
 
 .asset-buttons {
-    padding: 1%;
+    padding: 8px;
+    text-align: right;
+    white-space: nowrap;
 }
 
 .asset-buttons button {
-    padding: 0.5em 1em;
+    padding: 5px 10px;
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 0.5em;
-	width: max-content; /* или другое значение, которое будет достаточным для самой длинной кнопки */
-}
+    border-radius: 3px;
+    font-size: 0.85em;
+    margin: 0;
 }
 
 .asset-buttons button:hover {
     background-color: #45a049;
 }
 
-/* Стили для span счастья */
 .happiness-span {
-    margin-left: 1em;
+    padding: 8px;
     color: blue;
-	text-align: right;
-	
+    font-size: 0.85em;
+    white-space: nowrap;
 }
 
 #total-maintenance-cost-container {
-    margin-top: 2%;
-    margin-bottom: 2%;
-    padding: 1%;
+    flex: 0 0 auto;
+    padding: 5px;
     border: 1px solid #ccc;
-    border-radius: 0.5em;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-size: 0.85em;
 }
 
+button#end-turn-button {
+    flex: 0 0 auto;
+    padding: 12px;
+    font-size: 1em;
+    background-color: #007BFF; /* Distinct color */
+    color: white;
+    width: 100%;
+    margin: 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button#end-turn-button:hover {
+    background-color: #0056b3;
+}
+
+/* Modals */
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     left: 0;
     top: 0;
     width: 100%;
@@ -118,38 +187,37 @@ body {
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
+    margin: 5% auto;
+    padding: 15px;
     border: 1px solid #888;
-    width: auto; /* Устанавливаем ширину автоматически */
-    max-width: 50%; /* Максимальная ширина модального окна */
-    max-height: 50%; /* Максимальная высота модального окна */
-    overflow: auto; /* Добавляем скролл, если содержимое не помещается */
+    width: 90%;
+    max-width: 400px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-content img {
-    max-width: 100%; /* Устанавливаем максимальную ширину изображения на 100% от родительского элемента */
-    height: auto; /* Для сохранения пропорций масштабирования */
+    max-width: 100%;
+    max-height: 50vh;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
 }
 
 .close {
     color: #aaa;
-    float: right;
-    font-size: 1.5em;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 28px;
     font-weight: bold;
 }
 
-#play-again-button-container {
-    margin-top: 2%;
-    text-align: center; 
-    padding: 0.5em 1em;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 0.5em;
-}
-
 .close:hover,
 .close:focus {
     color: black;
@@ -157,28 +225,33 @@ body {
     cursor: pointer;
 }
 
-button {
-    padding: 1%;
-    border: none;
-    border-radius: 0.5em;
-    cursor: pointer;
-    margin-left: 1em;
-    margin-right: 1em;
+#play-again-button-container {
+    margin-top: 15px;
 }
 
 button:disabled {
-    background-color: #cccccc; /* серый цвет фона */
-    color: #666666; /* серый цвет текста */
-    cursor: not-allowed; /* курсор "запрещено" */
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
 }
 
-button:hover {
-    background-color: #45a049;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+/* Responsive tweaks */
+@media (max-height: 600px) {
+    body {
+        padding: 5px;
+    }
+    #event-field-container {
+        min-height: 60px;
+        max-height: 20vh;
+    }
+    button#end-turn-button {
+        padding: 8px;
+    }
+    #turn-counter, #resource-container, #trade-field-container {
+        padding: 3px;
+        margin-bottom: 3px;
+    }
+    #asset-container, #total-maintenance-cost-container {
+        margin-bottom: 3px;
+    }
 }
