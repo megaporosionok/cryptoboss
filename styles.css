@@ -1,221 +1,144 @@
-* {
+body {
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 16px;
+    display: flex;
+    justify-content: center; /* Центрируем контент по горизонтали */
+}
+
+.game-container {
+    width: 100%;
+    max-width: 600px; /* Ограничиваем максимальную ширину как раньше */
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Отступы между блоками */
+}
+
+.section-card {
+    background: white;
+    padding: 16px;
+    border-radius: 4px; /* Скругленные углы */
     box-sizing: border-box;
 }
 
-html, body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* Disable global scroll */
-}
-
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    max-width: 720px;
-    margin: 0 auto; /* Center horizontally on large screens */
-    padding: 8px;
-}
-
 #turn-counter {
-    flex: 0 0 auto;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    font-size: 0.9em;
+    text-align: center;
+    font-size: 1.2em;
     font-weight: bold;
+    color: #3f51b5;
 }
 
 #event-field-container {
-    flex: 0 1 auto;
     min-height: 80px;
-    max-height: 25vh; /* Limit height so it doesn't push everything out */
-    margin-bottom: 5px;
-    display: flex;
-    align-items: stretch;
-}
-
-#event-field {
-    flex: 1;
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow-y: auto; /* Scroll text inside if too long */
-    font-size: 0.9em;
+    text-align: center;
 }
 
-#trade-field-container {
-    flex: 0 0 auto;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 5px;
+#event-field button {
+    margin: 8px 4px 0 4px;
 }
 
 #trade-info {
-    margin-bottom: 5px;
-    font-size: 0.85em;
+    text-align: center;
+    font-size: 0.9em;
+    margin-bottom: 10px;
 }
 
 #money-slider {
     width: 100%;
-    margin-bottom: 5px;
-    cursor: pointer;
-    display: block;
 }
 
 #selected-money {
-    margin-bottom: 0;
-    font-size: 0.9em;
+    text-align: center;
+    margin-top: 5px;
 }
 
 #resource-container {
-    flex: 0 0 auto;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 5px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    font-size: 0.9em;
+    font-size: 1em;
+    font-weight: 500;
 }
 
-/* The container for the table needs to scroll */
-#asset-container {
-    flex: 1 1 auto; /* Grow to take available space */
-    overflow-y: auto; /* Internal scroll */
-    overflow-x: auto; /* Horizontal scroll if table is too wide */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    padding: 0;
-    min-height: 0; /* Critical for flex container to shrink properly */
-}
-
+/* Стили для таблицы активов */
 #asset-table {
-    width: 100%;
-    border-collapse: collapse;
+    border: none; /* Убираем границы самой таблицы */
 }
 
-.asset-item {
-    border-bottom: 1px solid #eee;
+#asset-table td {
+    padding: 12px 8px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    border-bottom: none;
+}
+#asset-table tr:first-child td {
+    border-top: none;
 }
 
 .asset-info {
-    padding: 8px;
     text-align: left;
-    font-size: 0.85em;
 }
 
 .asset-buttons {
-    padding: 8px;
-    text-align: right;
-    white-space: nowrap;
-}
-
-.asset-buttons button {
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 3px;
-    font-size: 0.85em;
-    margin: 0;
-}
-
-.asset-buttons button:hover {
-    background-color: #45a049;
+    text-align: center;
 }
 
 .happiness-span {
-    padding: 8px;
-    color: blue;
-    font-size: 0.85em;
+    text-align: right;
+    color: #4CAF50;
     white-space: nowrap;
 }
 
 #total-maintenance-cost-container {
-    flex: 0 0 auto;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    font-size: 0.85em;
-}
-
-button#end-turn-button {
-    flex: 0 0 auto;
-    padding: 12px;
-    font-size: 1em;
-    background-color: #007BFF; /* Distinct color */
-    color: white;
-    width: 100%;
-    margin: 0;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    text-align: center;
+    color: #d32f2f;
     font-weight: bold;
 }
 
-button#end-turn-button:hover {
-    background-color: #0056b3;
-}
-
-/* Modals */
+/* Модальные окна */
 .modal {
     display: none;
     position: fixed;
-    z-index: 10;
+    z-index: 100;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.6);
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto;
-    padding: 15px;
+    margin: 10% auto;
+    padding: 20px;
     border: 1px solid #888;
     width: 90%;
     max-width: 400px;
-    border-radius: 10px;
+    border-radius: 8px;
     text-align: center;
     position: relative;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .modal-content img {
     max-width: 100%;
-    max-height: 50vh;
     height: auto;
-    object-fit: contain;
-    margin: 0 auto;
-    display: block;
+    margin-bottom: 15px;
 }
 
 .close {
     color: #aaa;
-    position: absolute;
-    top: 5px;
-    right: 10px;
+    float: right;
     font-size: 28px;
     font-weight: bold;
+    position: absolute;
+    right: 15px;
+    top: 5px;
 }
 
 .close:hover,
@@ -225,33 +148,7 @@ button#end-turn-button:hover {
     cursor: pointer;
 }
 
-#play-again-button-container {
-    margin-top: 15px;
-}
-
-button:disabled {
-    background-color: #cccccc;
-    color: #666666;
-    cursor: not-allowed;
-}
-
-/* Responsive tweaks */
-@media (max-height: 600px) {
-    body {
-        padding: 5px;
-    }
-    #event-field-container {
-        min-height: 60px;
-        max-height: 20vh;
-    }
-    button#end-turn-button {
-        padding: 8px;
-    }
-    #turn-counter, #resource-container, #trade-field-container {
-        padding: 3px;
-        margin-bottom: 3px;
-    }
-    #asset-container, #total-maintenance-cost-container {
-        margin-bottom: 3px;
-    }
+/* Фиксы для слайдера MDL, чтобы не глючил */
+.mdl-slider__container {
+    width: 100%;
 }

@@ -10,13 +10,24 @@ let yesButton;
 let noButton;
 
 // Получение ссылки на кнопку "Конец хода"
-const endTurnButton = document.getElementById('end-turn-button');
+const endTurnButton = document.getElementById(\'end-turn-button\');
+
+// Обновляем кнопку "Конец хода" для Material Design Lite
+if (window.componentHandler) {
+    window.componentHandler.upgradeElement(endTurnButton);
+}
+
+// Получаем элемент с id "money-slider" и обновляем его для Material Design Lite
+const moneySlider = document.getElementById(\'money-slider\');
+if (window.componentHandler) {
+    window.componentHandler.upgradeElement(moneySlider);
+}
 
 // Получаем элемент с id "money"
-const moneyElement = document.getElementById('money');
+const moneyElement = document.getElementById(\'money\');
 
 // Обновляем его содержимое, используя значение переменной money
-moneyElement.textContent = money.toLocaleString() + '$';
+moneyElement.textContent = money.toLocaleString() + \'$\';
 
 // Установка кнопки "Конец хода" неактивной при инициализации страницы
 endTurnButton.disabled = true;
@@ -24,76 +35,84 @@ updateLifeCost();
 
 // Обновление отображения финансов и других данных
 function update_information() {
-    document.getElementById('money').textContent = money.toLocaleString() + '$';
-    document.getElementById('happiness-value').textContent = happiness;
-    document.getElementById('multiplier').textContent = multiplier;
-    document.getElementById('risk').textContent = risk + '%';
+    document.getElementById(\'money\').textContent = money.toLocaleString() + \'$\';
+    document.getElementById(\'happiness-value\').textContent = happiness;
+    document.getElementById(\'multiplier\').textContent = multiplier;
+    document.getElementById(\'risk\').textContent = risk + \'%\';
     setSliderRange();
     updateSelectedMoney();
 }
 
 // Функция для обновления счетчика ходов
 function updateTurnCounter(turn) {
-    const turnCounter = document.getElementById('turn-counter');
+    const turnCounter = document.getElementById(\'turn-counter\');
     turnCounter.textContent = `Ход: ${turn}`;
 }
 
 // Определение активов с учетом стоимости обслуживания
 const assets = [
-    { name: 'Машина', price: 30000, happinessPrice: 3, maintenanceCost: 50, owned: false, achieved: false },
-    { name: 'Квартира', price: 200000, happinessPrice: 3, maintenanceCost: 500, owned: false, achieved: false },
-    { name: 'Дача', price: 500000, happinessPrice: 3, maintenanceCost: 1000, owned: false, achieved: false },
-    { name: 'Пентхаус', price: 2000000, happinessPrice: 2, maintenanceCost: 1000, owned: false, achieved: false },
-    { name: 'Вертолет', price: 5000000, happinessPrice: 2, maintenanceCost: 3000, owned: false, achieved: false },
-    { name: 'Самолет', price: 10000000, happinessPrice: 2, maintenanceCost: 5000, owned: false, achieved: false },
-    { name: 'Вилла', price: 25000000, happinessPrice: 1, maintenanceCost: 10000, owned: false, achieved: false },
-    { name: 'Яхта', price: 100000000, happinessPrice: 1, maintenanceCost: 100000, owned: false, achieved: false },
-	{ name: 'Ядерка на кремль', price: 10000000000, happinessPrice: 1000, maintenanceCost: 0, owned: false, achieved: false },
+    { name: \'Машина\', price: 30000, happinessPrice: 3, maintenanceCost: 50, owned: false, achieved: false },
+    { name: \'Квартира\', price: 200000, happinessPrice: 3, maintenanceCost: 500, owned: false, achieved: false },
+    { name: \'Дача\', price: 500000, happinessPrice: 3, maintenanceCost: 1000, owned: false, achieved: false },
+    { name: \'Пентхаус\', price: 2000000, happinessPrice: 2, maintenanceCost: 1000, owned: false, achieved: false },
+    { name: \'Вертолет\', price: 5000000, happinessPrice: 2, maintenanceCost: 3000, owned: false, achieved: false },
+    { name: \'Самолет\', price: 10000000, happinessPrice: 2, maintenanceCost: 5000, owned: false, achieved: false },
+    { name: \'Вилла\', price: 25000000, happinessPrice: 1, maintenanceCost: 10000, owned: false, achieved: false },
+    { name: \'Яхта\', price: 100000000, happinessPrice: 1, maintenanceCost: 100000, owned: false, achieved: false },
+	{ name: \'Ядерка на кремль\', price: 10000000000, happinessPrice: 1000, maintenanceCost: 0, owned: false, achieved: false },
     // Добавьте остальные активы
 ];
 
 function displayAssets() {
-    const assetTableBody = document.getElementById('asset-body');
-    assetTableBody.innerHTML = '';
+    const assetTableBody = document.getElementById(\'asset-body\');
+    assetTableBody.innerHTML = \'\';
 
-    const totalMaintenanceCostContainer = document.getElementById('total-maintenance-cost-container');
-    totalMaintenanceCostContainer.innerHTML = ''; // Очищаем контейнер перед обновлением
+    const totalMaintenanceCostContainer = document.getElementById(\'total-maintenance-cost-container\');
+    totalMaintenanceCostContainer.innerHTML = \'\'; // Очищаем контейнер перед обновлением
 
     assets.forEach((asset, index) => {
-        const row = document.createElement('tr');
-        row.className = 'asset-item';
+        const row = document.createElement(\'tr\');
+        row.className = \'asset-item\';
         
-        const infoCell = document.createElement('td');
-        infoCell.className = 'asset-info';
+        const infoCell = document.createElement(\'td\');
+        infoCell.className = \'asset-info\';
         infoCell.textContent = `${asset.name}: ${asset.price.toLocaleString()} $  Обслуживание: ${asset.maintenanceCost} $/день`;
 
-        const buttonCell = document.createElement('td');
-        buttonCell.className = 'asset-buttons';
+        const buttonCell = document.createElement(\'td\');
+        buttonCell.className = \'asset-buttons\';
         			
         if (!asset.owned) {
-            const buyButton = document.createElement('button');
-            buyButton.textContent = 'Купить';
-            buyButton.onclick = () => buyAsset(index);
+            const buyButton = document.createElement(\'button\');
+            buyButton.textContent = \'Купить\';
+            buyButton.classList.add(\'mdl-button\', \'mdl-js-button\', \'mdl-button--raised\', \'mdl-button--accent\');
+            buyButton.onclick = () => buyAsset(index);\
             if (asset.price > money) {
                 buyButton.disabled = true; // Выключаем кнопку, если не хватает денег
             }
             buttonCell.appendChild(buyButton);
+            if (window.componentHandler) {
+                window.componentHandler.upgradeElement(buyButton);
+            }
         } else {
-            const sellButton = document.createElement('button');
-            sellButton.textContent = 'Продать -25%';
-            sellButton.onclick = () => sellAsset(index);
+            const sellButton = document.createElement(\'button\');
+            sellButton.textContent = \'Продать -25%\';
+            sellButton.classList.add(\'mdl-button\', \'mdl-js-button\', \'mdl-button--raised\', \'mdl-button--accent\');
+            sellButton.onclick = () => sellAsset(index);\
             buttonCell.appendChild(sellButton);
+            if (window.componentHandler) {
+                window.componentHandler.upgradeElement(sellButton);
+            }
         }
 
         // Создаем ячейку для отображения счастья
-        const happinessCell = document.createElement('td');
-        happinessCell.className = 'happiness-span';
+        const happinessCell = document.createElement(\'td\');
+        happinessCell.className = \'happiness-span\';
 		
         // Создаем span для отображения счастья только если актив не достигнут
         if (!asset.achived) {
-            const happinessSpan = document.createElement('span');
+            const happinessSpan = document.createElement(\'span\');
             happinessSpan.textContent = `+${asset.happinessPrice} счастья`;
-            happinessSpan.style.marginLeft = '10px'; // Пример отступа, можно настроить под свои требования
+            happinessSpan.style.marginLeft = \'10px\'; // Пример отступа, можно настроить под свои требования
             happinessCell.appendChild(happinessSpan);
         }
 
@@ -104,7 +123,7 @@ function displayAssets() {
         assetTableBody.appendChild(row);
     });
 
-    const totalMaintenanceCostDiv = document.createElement('div');
+    const totalMaintenanceCostDiv = document.createElement(\'div\');
     totalMaintenanceCostDiv.textContent = `Общие жизненные расходы: ${Math.round(calculateMaintenanceCost() + lifecost)} $/день`;
     totalMaintenanceCostContainer.appendChild(totalMaintenanceCostDiv);
 }
@@ -167,11 +186,11 @@ function getRandomInt(min, max) {
 // Определяем массив событий и их весов
 const events = [
     {
-		description: 'disaster 1',
+		description: \'disaster 1\',
 		moneyChange: 0, happinessChange: 0, disaster: 1, weight: 0
 	},
-	{
-		description: 'Обычный рабочий день',
+	{\
+		description: \'Обычный рабочий день\',
 		moneyChange: 0, happinessChange: 0, weight: 200
 	},
     {
@@ -179,8 +198,8 @@ const events = [
             return `Ваш друг попросил вас о помощи. Принять: -${1000 + Math.round(Math.abs(money) * 0.25)}$, +1 счастье. Отказаться: -1 счастье.`;
         },
         options: [
-            { text: 'Принять', moneyChange: function() { return -(1000 + Math.round(Math.abs(money) * 0.25)) }, happinessChange: 1 },
-            { text: 'Отказаться', moneyChange: 0, happinessChange: -1 }
+            { text: \'Принять\', moneyChange: function() { return -(1000 + Math.round(Math.abs(money) * 0.25)) }, happinessChange: 1 },
+            { text: \'Отказаться\', moneyChange: 0, happinessChange: -1 }
         ],
         weight: 8
     },
@@ -189,8 +208,8 @@ const events = [
 			return `У вас есть шанс провернуть темное дельце. Принять: +${1000 + Math.round(Math.abs(money) * 2)}$, -2 счастье. Отказаться: -${Math.round(Math.abs(money) * 0.05)}$.`;
 		 },
         options: [
-            { text: 'Принять', moneyChange: function() { return +(1000 + Math.round(Math.abs(money) * 2)) }, happinessChange: -2 },
-            { text: 'Отказаться', moneyChange: function() { return -(Math.round(Math.abs(money) * 0.05)) }, happinessChange: 0 }
+            { text: \'Принять\', moneyChange: function() { return +(1000 + Math.round(Math.abs(money) * 2)) }, happinessChange: -2 },
+            { text: \'Отказаться\', moneyChange: function() { return -(Math.round(Math.abs(money) * 0.05)) }, happinessChange: 0 }
         ],
         weight: 4
     },
@@ -199,8 +218,8 @@ const events = [
 			return `Есть хорошая возможность помочь ЗСУ. Принять: -${1000 + Math.round(Math.abs(money) * 0.3)}$, +1 счастье.`;
 		},
         options: [
-            { text: 'Принять', moneyChange: function() { return -(1000 + Math.round(Math.abs(money) * 0.3)) }, happinessChange: +1 },
-            { text: 'Отказаться', moneyChange: 0, happinessChange: 0 }
+            { text: \'Принять\', moneyChange: function() { return -(1000 + Math.round(Math.abs(money) * 0.3)) }, happinessChange: +1 },
+            { text: \'Отказаться\', moneyChange: 0, happinessChange: 0 }
         ],
         weight: 8
     },
@@ -209,33 +228,33 @@ const events = [
 			return `Бандиты украли вашего близкого и требуют выкуп. Принять: -${Math.round(Math.abs(money) * 0.9)}$ Отказаться: -3 счастья.`;
 		},
         options: [
-            { text: 'Принять', moneyChange: function() { return -(Math.round(Math.abs(money) * 0.9)) }, happinessChange: 0 },
-            { text: 'Отказаться', moneyChange: 0, happinessChange: -3 }
+            { text: \'Принять\', moneyChange: function() { return -(Math.round(Math.abs(money) * 0.9)) }, happinessChange: 0 },
+            { text: \'Отказаться\', moneyChange: 0, happinessChange: -3 }
         ],
         weight: 0
     },
     { 
-        description: 'Умер ваш любимый кот: -1 счастье.',
+        description: \'Умер ваш любимый кот: -1 счастье.\',
         moneyChange: 0, happinessChange: -1, weight: 2
     },
 	{ 
-        description: 'Вы опять забыли полить ваш кактус и он завял: -1 счастье.',
+        description: \'Вы опять забыли полить ваш кактус и он завял: -1 счастье.\',
         moneyChange: 0, happinessChange: -1, weight: 2
     },
 	{ 
-        description: 'Психиатр сказал что все ваши проблемы из-за криптотрейдинга: -1 счастье.',
+        description: \'Психиатр сказал что все ваши проблемы из-за криптотрейдинга: -1 счастье.\',
         moneyChange: 0, happinessChange: -1, weight: 2
     },
 	{ 
-        description: 'Жена ушла к "нормальному мужику" (сталевару): -1 счастье.',
+        description: \'Жена ушла к \"нормальному мужику\" (сталевару): -1 счастье.\',
         moneyChange: 0, happinessChange: -1, weight: 2
     },
 	{ 
-        description: 'Ночной образ жизни сделал вас похожим на зомби: -1 счастье.',
+        description: \'Ночной образ жизни сделал вас похожим на зомби: -1 счастье.\',
         moneyChange: 0, happinessChange: -1, weight: 2
     },
 	{ 
-        description: 'Вечноуставшие глаза и геморрой на жопе делает вас несчастным: -1 счастье.',
+        description: \'Вечноуставшие глаза и геморрой на жопе делает вас несчастным: -1 счастье.\',
         moneyChange: 0, happinessChange: -1, weight: 2
     },
 	{
@@ -253,8 +272,8 @@ const events = [
 
 // Функция для генерации случайного события
 function generateRandomEvent() {
-    const eventField = document.getElementById('event-field');
-    eventField.innerHTML = ''; // Очистка содержимого eventField перед добавлением нового события
+    const eventField = document.getElementById(\'event-field\');
+    eventField.innerHTML = \'\'; // Очистка содержимого eventField перед добавлением нового события
 
     // Вычисляем общий вес всех событий
     const totalWeight = events.reduce((acc, curr) => acc + curr.weight, 0);
@@ -277,10 +296,10 @@ function generateRandomEvent() {
     }
 
 	// Создаем элементы для отображения выбранного события
-	const eventDescription = document.createElement('div');
+	const eventDescription = document.createElement(\'div\');
 
 	// Проверяем, является ли описание функцией
-	if (typeof selectedEvent.description === 'function') {
+	if (typeof selectedEvent.description === \'function\') {
 		eventDescription.textContent = selectedEvent.description();
 	} else {
 		eventDescription.textContent = selectedEvent.description;
@@ -292,17 +311,21 @@ function generateRandomEvent() {
     // После создания кнопок
     if (selectedEvent.options) {
         selectedEvent.options.forEach(option => {
-            const button = document.createElement('button');
+            const button = document.createElement(\'button\');
             button.textContent = option.text;
+            button.classList.add(\'mdl-button\', \'mdl-js-button\', \'mdl-button--raised\', \'mdl-button--colored\');
             button.onclick = () => handleEventResponse({ moneyChange: option.moneyChange, happinessChange: option.happinessChange });
 
             // Добавляем кнопку на страницу
             eventField.appendChild(button);
+            if (window.componentHandler) {
+                window.componentHandler.upgradeElement(button);
+            }
 
             // Устанавливаем соответствующую кнопку в переменную yesButton или noButton
-            if (option.text === 'Принять') {
+            if (option.text === \'Принять\') {
                 yesButton = button;
-            } else if (option.text === 'Отказаться') {
+            } else if (option.text === \'Отказаться\') {
                 noButton = button;
             }
         });
@@ -326,11 +349,11 @@ function generateRandomEvent() {
 // Функция для обработки ответа на случайное событие
 function handleEventResponse(change) {  
     // Проверяем тип данных moneyChange
-    if (typeof change.moneyChange === 'function') {
-		console.log("Изменение в деньгах:", change.moneyChange());
+    if (typeof change.moneyChange === \'function\') {
+		console.log(\"Изменение в деньгах:\", change.moneyChange());
         money += change.moneyChange(); // Вызываем функцию moneyChange
     } else {
-		console.log("Изменение в деньгах:", change.moneyChange);
+		console.log(\"Изменение в деньгах:\", change.moneyChange);
         money += change.moneyChange; // Или используем значение напрямую
     }
     happiness += change.happinessChange;
@@ -348,11 +371,11 @@ function handleEventResponse(change) {
 }
 
 // Добавим слушатель события input на ползунке
-document.getElementById('money-slider').addEventListener('input', updateSelectedMoney);
+document.getElementById(\'money-slider\').addEventListener(\'input\', updateSelectedMoney);
 
 // Измененная функция для установки минимального и максимального значения ползунка
 function setSliderRange() {
-    const moneySlider = document.getElementById('money-slider');
+    const moneySlider = document.getElementById(\'money-slider\');
     moneySlider.min = 0;
     moneySlider.max = money;
 }
@@ -362,14 +385,14 @@ setSliderRange();
 
 // Функция для установки максимального значения ползунка
 function setMaxSliderValue() {
-    const moneySlider = document.getElementById('money-slider');
+    const moneySlider = document.getElementById(\'money-slider\');
     moneySlider.max = money - Math.round(calculateMaintenanceCost() + lifecost); // Установим максимальное значение ползунка равным текущему балансу денег
 }
 
 // Новая функция для обновления отображения выбранной суммы денег
 function updateSelectedMoney() {
-    const moneySlider = document.getElementById('money-slider');
-    const selectedMoneyText = document.getElementById('selected-money');
+    const moneySlider = document.getElementById(\'money-slider\');
+    const selectedMoneyText = document.getElementById(\'selected-money\');
     const selectedMoneyValue = parseInt(moneySlider.value);
 
     // Учтем максимальное значение money
@@ -380,23 +403,23 @@ function updateSelectedMoney() {
 // Функция для обработки торговли на бирже
 function trade() {
     // Получение значения ползунка
-    const moneySlider = document.getElementById('money-slider');
+    const moneySlider = document.getElementById(\'money-slider\');
     const tradeAmount = parseInt(moneySlider.value);
 
     // Логика торговли
 	const randomNum = getRandomInt(0, 100);
 	const positiveOutcome = randomNum <= risk;
-	console.log("Random number:", randomNum);
-	console.log("Positive outcome:", positiveOutcome);
+	console.log(\"Random number:\", randomNum);
+	console.log(\"Positive outcome:\", positiveOutcome);
 
     if (positiveOutcome) {
         const rawTradeResult = tradeAmount * multiplier;
         const roundedTradeResult = Math.round(rawTradeResult);
         money += roundedTradeResult - tradeAmount; // Прибавляем округленный результат и вычитаем изначальную сумму
-        console.log("positive!");
+        console.log(\"positive!\");
     } else {
         money -= tradeAmount;
-        console.log("negative!");
+        console.log(\"negative!\");
     }
 }
 
@@ -467,33 +490,37 @@ function checkAndSellAsset() {
             // Продаем актив с максимальной ценой
             const maxPriceIndex = assets.findIndex(asset => asset === maxPriceAsset);
             sellAsset(maxPriceIndex);
-        }
-    }
+        }\
+    }\
 }
 
 // Функция для отображения модального окна
 function showModal(modalId, closeButtonClass, playAgainButtonId) {
   const modal = document.getElementById(modalId);
-  modal.style.display = 'block';
+  modal.style.display = \'block\';
 
   const closeButton = modal.querySelector(closeButtonClass);
   const playAgainButton = document.getElementById(playAgainButtonId);
+  playAgainButton.classList.add(\'mdl-button\', \'mdl-js-button\', \'mdl-button--raised\', \'mdl-button--colored\');
+  if (window.componentHandler) {
+      window.componentHandler.upgradeElement(playAgainButton);
+  }
 
   // Закрытие модального окна при нажатии на крестик
   closeButton.onclick = function() {
-    modal.style.display = 'none';
+    modal.style.display = \'none\';
   }
 
-  // Сброс игры при нажатии на кнопку "Сыграть еще раз"
+  // Сброс игры при нажатии на кнопку \"Сыграть еще раз\"
   playAgainButton.onclick = function() {
-    modal.style.display = 'none';
+    modal.style.display = \'none\';
     location.reload(); // Этот метод перезагружает текущую страницу //
   }
 
   // Закрытие модального окна при клике вне его области
   window.onclick = function(event) {
     if (event.target == modal) {
-      modal.style.display = 'none';
+      modal.style.display = \'none\';
     }
   }
 }
@@ -501,15 +528,15 @@ function showModal(modalId, closeButtonClass, playAgainButtonId) {
 // Проверка условий поражения и отображение модального окна при проигрыше
 function checkLossConditions() {
   if (money < 0 || happiness < 0) {
-    showModal('modal', '.close', 'play-again-button-loss');
+    showModal(\'modal\', \'.close\', \'play-again-button-loss\');
   }
 }
 
 // Проверка условий выигрыша и отображение модального окна при выигрыше
 function checkWinConditions() {
-  const ownedAsset = assets.find(asset => asset.name === 'Ядерка на кремль' && asset.owned);
+  const ownedAsset = assets.find(asset => asset.name === \'Ядерка на кремль\' && asset.owned);
   if (ownedAsset) {
-    showModal('modal2', '.close', 'play-again-button-win');
+    showModal(\'modal2\', \'.close\', \'play-again-button-win\');
   }
 }
 
@@ -522,19 +549,8 @@ function updateEventWeight() {
 
 // Включение кнопок покупки активов 
 function disableAllButtons() {
-    const buttons = document.querySelectorAll('.asset-buttons button');
+    const buttons = document.querySelectorAll(\'.asset-buttons button\');
     buttons.forEach(button => {
         button.disabled = true;
     });
 }
-
-
-
-
-
-
-
-
-
-
-

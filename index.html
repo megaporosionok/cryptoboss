@@ -5,42 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Криптобомж</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
 </head>
 <body>
-	<div id="turn-counter">Ход: 1</div> <!-- Этот элемент добавляет счетчик ходов -->
-	<div id="event-field-container">
-        <div id="event-field">
-            <!-- Здесь будут отображаться случайные события и кнопки для выбора реакции -->
+    <div class="game-container">
+        <!-- Turn Counter -->
+        <div id="turn-counter" class="mdl-shadow--2dp section-card">Ход: 1</div>
+
+        <!-- Event Field -->
+        <div id="event-field-container" class="mdl-shadow--2dp section-card">
+            <div id="event-field">
+                <!-- Здесь будут отображаться случайные события и кнопки для выбора реакции -->
+            </div>
         </div>
-    </div>
-    <div id="trade-field-container">
-        <div id="trade-info">
-            Мультипликатор: <span id="multiplier">1.5</span> | Шанс не потерять бабло: <span id="risk">50%</span>
+
+        <!-- Trade Field -->
+        <div id="trade-field-container" class="mdl-shadow--2dp section-card">
+            <div id="trade-info">
+                Мультипликатор: <span id="multiplier">1.5</span> | Шанс не потерять бабло: <span id="risk">50%</span>
+            </div>
+            <input type="range" id="money-slider" min="0" max="0" value="0" class="mdl-slider mdl-js-slider">
+            <div id="selected-money">Завести на биржу: 0 $</div>
         </div>
-        <input type="range" id="money-slider" min="0" max="0" value="0">
-        <div id="selected-money">Завести на биржу: 0 $</div>
+
+        <!-- Resource Container -->
+        <div id="resource-container" class="mdl-shadow--2dp section-card">
+            <div id="finance">Финансы: <span id="money">money $</span></div>
+            <div id="happiness">Счастье: <span id="happiness-value">5</span></div>
+        </div>
+
+        <!-- Asset Container -->
+        <div id="asset-container" class="mdl-shadow--2dp section-card">
+            <h4 style="margin-top: 0; text-align: center;">Активы</h4>
+            <div style="overflow-x: auto;">
+                <table id="asset-table" class="mdl-data-table mdl-js-data-table" style="width: 100%;">
+                    <tbody id="asset-body">
+                        <!-- Здесь будут отображаться активы -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Total Maintenance Cost -->
+        <div id="total-maintenance-cost-container" class="mdl-shadow--2dp section-card">
+            <!-- Здесь будет отображаться общая стоимость обслуживания -->
+        </div>
+
+        <!-- End Turn Button -->
+        <button id="end-turn-button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-button--large" style="width: 100%; margin-top: 10px;" onclick="end_turn()">Конец хода</button>
     </div>
-    <div id="resource-container">
-        <div id="finance">Финансы: <span id="money">money $</span></div>
-        <div id="happiness">Счастье: <span id="happiness-value">5</span></div>
-    </div>
-    <div id="asset-container">
-        <table id="asset-table">
-            <tbody id="asset-body">
-                <!-- Здесь будут отображаться активы, их цены и кнопки для покупки/продажи -->
-                <!-- Каждый актив будет представлен в виде строки таблицы -->
-                <!-- Например: -->
-                <!-- <tr class="asset-item" id="asset-1">
-                    <td class="asset-info">Актив 1: <span id="asset-1-price">asset.price</span></td>
-                    <td><button id="buy-asset-1" onclick="buyOrSellAsset(1)">Купить</button></td>
-                </tr> -->
-            </tbody>
-        </table>
-    </div>
-    <div id="total-maintenance-cost-container">
-        <!-- Здесь будет отображаться общая стоимость обслуживания -->
-    </div>
-    <button id="end-turn-button" onclick="end_turn()">Конец хода</button>
 	
 	<!-- Модальное окно Loss -->
 	<div id="modal" class="modal">
@@ -64,6 +78,7 @@
 	  </div>
 	</div>
 
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="game.js"></script>
 </body>
 </html>
