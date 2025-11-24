@@ -1,154 +1,180 @@
-body {
-    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    background-color: #f5f5f5;
+html, body {
+    height: 100%;
+    width: 100%;
     margin: 0;
-    padding: 16px;
+    padding: 0;
+    background-color: #f5f5f5;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    overflow: hidden; /* Запрещаем скролл всей страницы */
+}
+
+body {
     display: flex;
-    justify-content: center; /* Центрируем контент по горизонтали */
+    justify-content: center;
+    align-items: center; /* Центрируем по вертикали тоже, если экран очень большой */
+    padding: 8px; /* Небольшой отступ от краев экрана */
+    box-sizing: border-box;
 }
 
 .game-container {
     width: 100%;
-    max-width: 600px; /* Ограничиваем максимальную ширину как раньше */
+    max-width: 600px;
+    height: 100%; /* Занимаем всю доступную высоту */
     display: flex;
     flex-direction: column;
-    gap: 16px; /* Отступы между блоками */
+    gap: 8px; /* Уменьшили расстояние между блоками */
 }
 
 .section-card {
     background: white;
-    padding: 16px;
-    border-radius: 4px; /* Скругленные углы */
+    padding: 8px 12px; /* Компактные отступы внутри карточек */
+    border-radius: 4px;
     box-sizing: border-box;
+    flex-shrink: 0; /* Запрещаем сжиматься по умолчанию */
+}
+
+/* Блоки с фиксированным размером (счетчики, инфо) */
+.compact-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
 }
 
 #turn-counter {
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: bold;
     color: #3f51b5;
+    font-weight: bold;
 }
 
+/* Event Field - может немного расти, но не бесконечно */
 #event-field-container {
     min-height: 80px;
+    flex-shrink: 0; /* Не сжимать меньше 80px */
+    max-height: 15vh; /* Не больше 15% высоты экрана */
+    overflow-y: auto; /* Скролл внутри текста если он длинный */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
-
 #event-field button {
-    margin: 8px 4px 0 4px;
+    margin: 4px;
+    transform: scale(0.9); /* Чуть уменьшим кнопки событий */
 }
 
+/* Trade Field */
+#trade-field-container {
+    flex-direction: column;
+    padding-bottom: 0;
+}
 #trade-info {
+    font-size: 0.85em;
+    margin-bottom: 4px;
     text-align: center;
-    font-size: 0.9em;
-    margin-bottom: 10px;
 }
-
 #money-slider {
     width: 100%;
+    margin: 0;
 }
-
 #selected-money {
+    font-size: 0.9em;
     text-align: center;
-    margin-top: 5px;
+    margin-top: 2px;
 }
 
+/* Resources */
 #resource-container {
-    display: flex;
     justify-content: space-around;
-    align-items: center;
-    font-size: 1em;
     font-weight: 500;
 }
 
-/* Стили для таблицы активов */
+/* Asset Container - ГЛАВНЫЙ БЛОК, который занимает все свободное место */
+.flex-grow-card {
+    flex: 1; /* Растягивается */
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Важно для работы flex-скролла */
+    padding-bottom: 0;
+}
+
+.table-scroll-wrapper {
+    flex: 1; /* Занимает место внутри карточки */
+    overflow-y: auto; /* Вертикальный скролл */
+    overflow-x: hidden;
+    margin-top: 4px;
+    border-top: 1px solid #eee;
+}
+
+/* Таблица активов */
 #asset-table {
-    border: none; /* Убираем границы самой таблицы */
+    border: none;
+    width: 100%;
 }
-
 #asset-table td {
-    padding: 12px 8px;
-    border-top: 1px solid rgba(0,0,0,0.1);
-    border-bottom: none;
+    padding: 8px 4px; /* Компактные ячейки */
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.85em;
 }
-#asset-table tr:first-child td {
-    border-top: none;
-}
-
-.asset-info {
+#asset-table td:first-child {
     text-align: left;
 }
-
-.asset-buttons {
-    text-align: center;
+.asset-buttons button {
+    font-size: 0.75em; /* Уменьшим шрифт кнопок в таблице */
+    padding: 0 8px;
+    line-height: 24px;
+    height: 24px;
+    min-width: auto;
 }
-
 .happiness-span {
-    text-align: right;
-    color: #4CAF50;
-    white-space: nowrap;
+    font-size: 0.8em;
 }
 
+/* Total Maintenance */
 #total-maintenance-cost-container {
-    text-align: center;
     color: #d32f2f;
+    font-size: 0.9em;
     font-weight: bold;
 }
 
-/* Модальные окна */
+/* Footer Button */
+.footer-action {
+    flex-shrink: 0;
+}
+
+/* Modal styles (unchanged mostly) */
 .modal {
     display: none;
     position: fixed;
-    z-index: 100;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background-color: rgba(0,0,0,0.6);
 }
-
 .modal-content {
     background-color: #fefefe;
-    margin: 10% auto;
+    margin: 5vh auto;
     padding: 20px;
     border: 1px solid #888;
     width: 90%;
     max-width: 400px;
     border-radius: 8px;
     text-align: center;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-
 .modal-content img {
     max-width: 100%;
-    height: auto;
-    margin-bottom: 15px;
+    max-height: 60vh;
 }
-
 .close {
-    color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
-    position: absolute;
-    right: 15px;
-    top: 5px;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
     cursor: pointer;
 }
 
-/* Фиксы для слайдера MDL, чтобы не глючил */
+/* MDL Slider fix */
 .mdl-slider__container {
-    width: 100%;
+    height: 20px; /* Уменьшим высоту контейнера слайдера */
 }

@@ -10,35 +10,35 @@
 </head>
 <body>
     <div class="game-container">
-        <!-- Turn Counter -->
-        <div id="turn-counter" class="mdl-shadow--2dp section-card">Ход: 1</div>
+        <!-- Turn Counter (Fixed Height) -->
+        <div id="turn-counter" class="mdl-shadow--2dp section-card compact-card">Ход: 1</div>
 
-        <!-- Event Field -->
+        <!-- Event Field (Flexible Height, scroll inside) -->
         <div id="event-field-container" class="mdl-shadow--2dp section-card">
             <div id="event-field">
-                <!-- Здесь будут отображаться случайные события и кнопки для выбора реакции -->
+                <!-- Здесь будут отображаться случайные события -->
             </div>
         </div>
 
-        <!-- Trade Field -->
-        <div id="trade-field-container" class="mdl-shadow--2dp section-card">
+        <!-- Trade Field (Fixed Height) -->
+        <div id="trade-field-container" class="mdl-shadow--2dp section-card compact-card">
             <div id="trade-info">
-                Мультипликатор: <span id="multiplier">1.5</span> | Шанс не потерять бабло: <span id="risk">50%</span>
+                Мультипликатор: <span id="multiplier">1.5</span> | Шанс: <span id="risk">50%</span>
             </div>
             <input type="range" id="money-slider" min="0" max="0" value="0" class="mdl-slider mdl-js-slider">
             <div id="selected-money">Завести на биржу: 0 $</div>
         </div>
 
-        <!-- Resource Container -->
-        <div id="resource-container" class="mdl-shadow--2dp section-card">
+        <!-- Resource Container (Fixed Height) -->
+        <div id="resource-container" class="mdl-shadow--2dp section-card compact-card">
             <div id="finance">Финансы: <span id="money">money $</span></div>
             <div id="happiness">Счастье: <span id="happiness-value">5</span></div>
         </div>
 
-        <!-- Asset Container -->
-        <div id="asset-container" class="mdl-shadow--2dp section-card">
-            <h4 style="margin-top: 0; text-align: center;">Активы</h4>
-            <div style="overflow-x: auto;">
+        <!-- Asset Container (Grows to fill space) -->
+        <div id="asset-container" class="mdl-shadow--2dp section-card flex-grow-card">
+            <h5 style="margin: 0 0 8px 0; text-align: center; font-size: 1em;">Активы</h5>
+            <div class="table-scroll-wrapper">
                 <table id="asset-table" class="mdl-data-table mdl-js-data-table" style="width: 100%;">
                     <tbody id="asset-body">
                         <!-- Здесь будут отображаться активы -->
@@ -47,16 +47,18 @@
             </div>
         </div>
 
-        <!-- Total Maintenance Cost -->
-        <div id="total-maintenance-cost-container" class="mdl-shadow--2dp section-card">
+        <!-- Total Maintenance Cost (Fixed Height) -->
+        <div id="total-maintenance-cost-container" class="mdl-shadow--2dp section-card compact-card">
             <!-- Здесь будет отображаться общая стоимость обслуживания -->
         </div>
 
-        <!-- End Turn Button -->
-        <button id="end-turn-button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-button--large" style="width: 100%; margin-top: 10px;" onclick="end_turn()">Конец хода</button>
+        <!-- End Turn Button (Fixed Height) -->
+        <div class="footer-action">
+            <button id="end-turn-button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-button--large" style="width: 100%;" onclick="end_turn()">Конец хода</button>
+        </div>
     </div>
 	
-	<!-- Модальное окно Loss -->
+	<!-- Модальные окна остаются без изменений -->
 	<div id="modal" class="modal">
 	  <div class="modal-content">
 		<span class="close">&times;</span>
@@ -67,7 +69,6 @@
 	  </div>
 	</div>
 
-	<!-- Модальное окно Win -->
 	<div id="modal2" class="modal">
 	  <div class="modal-content">
 		<span class="close">&times;</span>
