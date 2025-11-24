@@ -5,35 +5,34 @@ html, body {
     padding: 0;
     background-color: #f5f5f5;
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    overflow: hidden; /* Запрещаем скролл всей страницы */
+    overflow: hidden;
 }
 
 body {
     display: flex;
     justify-content: center;
-    align-items: center; /* Центрируем по вертикали тоже, если экран очень большой */
-    padding: 8px; /* Небольшой отступ от краев экрана */
+    align-items: center;
+    padding: 8px;
     box-sizing: border-box;
 }
 
 .game-container {
     width: 100%;
     max-width: 600px;
-    height: 100%; /* Занимаем всю доступную высоту */
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 8px; /* Уменьшили расстояние между блоками */
+    gap: 8px;
 }
 
 .section-card {
     background: white;
-    padding: 8px 12px; /* Компактные отступы внутри карточек */
+    padding: 8px 12px;
     border-radius: 4px;
     box-sizing: border-box;
-    flex-shrink: 0; /* Запрещаем сжиматься по умолчанию */
+    flex-shrink: 0;
 }
 
-/* Блоки с фиксированным размером (счетчики, инфо) */
 .compact-card {
     display: flex;
     align-items: center;
@@ -46,12 +45,11 @@ body {
     font-weight: bold;
 }
 
-/* Event Field - может немного расти, но не бесконечно */
 #event-field-container {
     min-height: 80px;
-    flex-shrink: 0; /* Не сжимать меньше 80px */
-    max-height: 15vh; /* Не больше 15% высоты экрана */
-    overflow-y: auto; /* Скролл внутри текста если он длинный */
+    flex-shrink: 0;
+    max-height: 15vh;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -60,59 +58,52 @@ body {
 }
 #event-field button {
     margin: 4px;
-    transform: scale(0.9); /* Чуть уменьшим кнопки событий */
+    transform: scale(0.9);
 }
 
-/* Trade Field */
 #trade-field-container {
     flex-direction: column;
-    padding-bottom: 0;
+    padding-bottom: 4px;
 }
 #trade-info {
     font-size: 0.85em;
     margin-bottom: 4px;
     text-align: center;
 }
-#money-slider {
-    width: 100%;
-    margin: 0;
-}
+
 #selected-money {
     font-size: 0.9em;
     text-align: center;
     margin-top: 2px;
 }
 
-/* Resources */
 #resource-container {
     justify-content: space-around;
     font-weight: 500;
 }
 
-/* Asset Container - ГЛАВНЫЙ БЛОК, который занимает все свободное место */
 .flex-grow-card {
-    flex: 1; /* Растягивается */
+    flex: 1;
     display: flex;
     flex-direction: column;
-    min-height: 0; /* Важно для работы flex-скролла */
+    min-height: 0;
     padding-bottom: 0;
 }
 
 .table-scroll-wrapper {
-    flex: 1; /* Занимает место внутри карточки */
-    overflow-y: auto; /* Вертикальный скролл */
+    flex: 1;
+    overflow-y: auto;
     overflow-x: hidden;
     margin-top: 4px;
     border-top: 1px solid #eee;
 }
 
-/* Таблица активов */
 #asset-table {
     border: none;
     width: 100%;
 }
 #asset-table td {
-    padding: 8px 4px; /* Компактные ячейки */
+    padding: 8px 4px;
     border-bottom: 1px solid #f0f0f0;
     font-size: 0.85em;
 }
@@ -120,7 +111,7 @@ body {
     text-align: left;
 }
 .asset-buttons button {
-    font-size: 0.75em; /* Уменьшим шрифт кнопок в таблице */
+    font-size: 0.75em;
     padding: 0 8px;
     line-height: 24px;
     height: 24px;
@@ -130,19 +121,16 @@ body {
     font-size: 0.8em;
 }
 
-/* Total Maintenance */
 #total-maintenance-cost-container {
     color: #d32f2f;
     font-size: 0.9em;
     font-weight: bold;
 }
 
-/* Footer Button */
 .footer-action {
     flex-shrink: 0;
 }
 
-/* Modal styles (unchanged mostly) */
 .modal {
     display: none;
     position: fixed;
@@ -174,7 +162,21 @@ body {
     cursor: pointer;
 }
 
-/* MDL Slider fix */
+/* --- ИСПРАВЛЕНИЕ СЛАЙДЕРА --- */
+
+/* Контейнер слайдера MDL: растягиваем на всю ширину, убираем padding */
 .mdl-slider__container {
-    height: 20px; /* Уменьшим высоту контейнера слайдера */
+    width: 100%;
+    padding: 0; /* Убираем padding, который ломал позиционирование */
+    height: 22px; /* Чуть увеличиваем высоту для удобства тача */
+    display: flex; /* Центрируем содержимое */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Сам элемент input: MDL по умолчанию дает ему margin и рассчитывает ширину */
+/* Мы лишь немного корректируем, чтобы он не упирался в самые края карточки */
+.mdl-slider {
+    width: calc(100% - 10px); 
+    margin: 0 5px;
 }
